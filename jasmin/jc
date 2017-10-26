@@ -1,0 +1,4 @@
+cat preamble.j $1 footer.j > $2
+./jasmin $2
+
+
