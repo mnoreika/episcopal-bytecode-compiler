@@ -5,6 +5,8 @@ import AbsSynTree.Definition;
 import AbsSynTree.Expression;
 import AbsSynTree.Expressions.Id;
 
+import java.util.HashMap;
+
 public class FunctionDef extends Definition {
     private Id id;
     private Arguments args;
@@ -20,5 +22,12 @@ public class FunctionDef extends Definition {
         this.id = id;
         this.args = args;
         this.expr = expr;
+    }
+
+    @Override
+    public String compile(HashMap<String, Expression> scope) {
+        scope.put(id.getName(), expr[0]);
+
+        return "";
     }
 }
