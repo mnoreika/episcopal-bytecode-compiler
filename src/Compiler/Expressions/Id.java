@@ -1,6 +1,7 @@
-package AbsSynTree.Expressions;
+package Compiler.Expressions;
 
-import AbsSynTree.Expression;
+import Compiler.Expression;
+import Compiler.Compilable;
 import java.util.HashMap;
 
 public class Id extends Expression {
@@ -15,7 +16,7 @@ public class Id extends Expression {
     }
 
     @Override
-    public String compile(HashMap<String, Expression> scope) {
+    public String compile(HashMap<String, Compilable> scope) {
         String result = "";
 
         if (scope.containsKey(name)) {

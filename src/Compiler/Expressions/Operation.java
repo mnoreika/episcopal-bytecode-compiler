@@ -1,7 +1,8 @@
-package AbsSynTree.Expressions;
+package Compiler.Expressions;
 
-import AbsSynTree.Expression;
-import AbsSynTree.Operator;
+import Compiler.Expression;
+import Compiler.Operator;
+import Compiler.Compilable;
 
 import java.util.HashMap;
 
@@ -29,11 +30,11 @@ public class Operation extends Expression {
     }
 
     @Override
-    public String compile(HashMap<String, Expression> scope) {
+    public String compile(HashMap<String, Compilable> scope) {
         String result = "";
 
         result += left.compile(scope) + right.compile(scope);
-        result += "iadd\n";
+        result += op.compile();
 
         return result;
     }

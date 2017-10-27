@@ -1,7 +1,6 @@
-package AbsSynTree;
+package Compiler;
 
-import AbsSynTree.Expressions.Id;
-import Tree.Statements.EXP;
+import Compiler.Expressions.Id;
 
 import java.util.HashMap;
 
@@ -39,11 +38,11 @@ public class Program {
                 ".limit locals 20\n" +
                 "getstatic java/lang/System/out Ljava/io/PrintStream;\n";
 
-        HashMap<String, Expression> scope = new HashMap<>();
+        HashMap<String, Compilable> scope = new HashMap<>();
 
         result += expr.compile(scope);
 
-        result += "invokestatic java/lang/String/valueOf(I)Ljava/lang/String;\n";
+        result += "\ninvokestatic java/lang/String/valueOf(I)Ljava/lang/String;\n";
         result += "invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V\n";
 
         result += "return\n";

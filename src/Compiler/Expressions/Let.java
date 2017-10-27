@@ -1,7 +1,8 @@
-package AbsSynTree.Expressions;
+package Compiler.Expressions;
 
-import AbsSynTree.Definition;
-import AbsSynTree.Expression;
+import Compiler.Definition;
+import Compiler.Expression;
+import Compiler.Compilable;
 
 import java.util.HashMap;
 
@@ -23,7 +24,7 @@ public class Let extends Expression {
     }
 
     @Override
-    public String compile(HashMap<String, Expression> scope) {
+    public String compile(HashMap<String, Compilable> scope) {
         return defn.compile(scope) + expr.compile(scope);
     }
 }
