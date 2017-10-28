@@ -1,25 +1,21 @@
 package Compiler;
 
-import Compiler.Definitions.FunctionDef;
 import Compiler.Expressions.Id;
 import java.util.HashMap;
 
 import static Compiler.Instruction.ILOAD;
 
 public class FunctionArg extends Expression {
-    private Id function;
     private Id argument;
+    private int position;
 
-    public FunctionArg(Id function, Id argument) {
-        this.function = function;
+    public FunctionArg(int position, Id argument) {
         this.argument = argument;
+        this.position = position;
     }
 
     @Override
-    public String compile(HashMap<String, Compilable> scope) {
-        FunctionDef def = (FunctionDef) scope.get(function.getName());
-        int stackIndex = def.findArgumentIndex(argument);
-
-        return ILOAD.toString() + stackIndex;
+    public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        assembler.addInstruction(ILOAD, position);
     }
 }

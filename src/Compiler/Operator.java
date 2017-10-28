@@ -1,5 +1,5 @@
 package Compiler;
 
 public abstract class Operator {
-    public abstract String compile();
+    public abstract void compile(Assembler assembler);
 }

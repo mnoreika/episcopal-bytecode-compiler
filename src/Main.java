@@ -9,6 +9,7 @@ import Compiler.Operators.Plus;
 import Compiler.Program;
 import Compiler.Constants.Integer;
 import Compiler.FunctionArg;
+import Compiler.Assembler;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -26,13 +27,16 @@ public class Main {
                                 new Id("sum")))));
 
         Program test2 = new Program(new Id("Function"),
-                new Let(new FunctionDef(new Id ("funcA"), new Id[] {new FunctionArg("x"), new FunctionArg("y")}, new Expression[] {
-                        new Operation(new Multiply(), new FunctionArg(new Id ("funcA"), new Id("x")),
-                                new Operation(new Plus(), new FunctionArg(new Id ("funcA"), new Id("x")), new FunctionArg(new Id ("funcA"), new Id("y"))))
+                new Let(new FunctionDef(new Id ("funcA"), new Id[] {new Id("x"), new Id("y")}, new Expression[] {
+                        new Operation(new Multiply(), new FunctionArg(0, new Id("x")),
+                                new Operation(new Plus(), new FunctionArg(0, new Id("x")), new FunctionArg(1, new Id("y"))))
                 }),
                         new FunctionCall(new Id("funcA"), new Expression[] {new Integer("7"), new Integer("5")})));
 
-        String result  = test2.compile();
+        Assembler assembler = new Assembler();
+        test2.compile(assembler);
+
+        String result = assembler.assemble();
 
         System.out.println(result);
 

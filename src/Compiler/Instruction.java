@@ -1,12 +1,23 @@
 package Compiler;
 
 public enum Instruction {
-    NLINE("\n"),
+    INITMETHOD(".method public <init>()V\n" +
+                "   aload_0\n" +
+                "   invokespecial java/lang/Object/<init>()V\n" +
+                "   return\n" +
+                ".end method"),
+    MAINMETHOD(".method public static main([Ljava/lang/String;)V\n" +
+                ".limit stack 20\n" +
+                ".limit locals 20\n" +
+                "getstatic java/lang/System/out Ljava/io/PrintStream;"),
     INVSTATIC("invokestatic "),
-    LDC("ldc "),
+    ENDMETHOD(".end method"),
+    RETURN("return"),
+    LDC("ldc"),
     PLUS("iadd"),
     MULT("imul"),
-    ILOAD("iload ");
+    ILOAD("iload"),
+    IRETURN("ireturn");
 
     private String value;
 

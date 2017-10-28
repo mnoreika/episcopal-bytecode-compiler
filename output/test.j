@@ -23,8 +23,8 @@ return
 .method public static funcA(II)I
    .limit stack 2
    .limit locals 2
-   iload 0
-   iload 1
+   iload_0
+   iload_1
    imul
    ireturn
 .end method

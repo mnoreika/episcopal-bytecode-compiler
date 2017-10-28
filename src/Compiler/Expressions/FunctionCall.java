@@ -2,10 +2,11 @@ package Compiler.Expressions;
 
 import Compiler.Expression;
 import Compiler.Compilable;
+import Compiler.Assembler;
 import java.util.HashMap;
 
+
 import static Compiler.Instruction.INVSTATIC;
-import static Compiler.Instruction.NLINE;
 
 public class FunctionCall extends Expression {
     private Id id;
@@ -17,16 +18,12 @@ public class FunctionCall extends Expression {
     }
 
     @Override
-    public String compile(HashMap<String, Compilable> scope) {
-        String result = "";
-
+    public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
         for (Expression arg : args) {
-            result += arg.compile(scope);
+            arg.compile(scope, assembler);
         }
 
-        result += INVSTATIC + "path" + NLINE;
-
-        return result;
+        assembler.addInstruction(INVSTATIC + "Function/" + id.getName() + "(II)I");
     }
 
 

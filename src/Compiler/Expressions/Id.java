@@ -3,6 +3,7 @@ package Compiler.Expressions;
 import Compiler.Expression;
 import Compiler.Compilable;
 import java.util.HashMap;
+import Compiler.Assembler;
 
 public class Id extends Expression {
     private String name;
@@ -16,13 +17,9 @@ public class Id extends Expression {
     }
 
     @Override
-    public String compile(HashMap<String, Compilable> scope) {
-        String result = "";
-
+    public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
         if (scope.containsKey(name)) {
-            result += scope.get(name).compile(scope);
+            scope.get(name).compile(scope, assembler);
         }
-
-        return result;
     }
 }

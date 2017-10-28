@@ -3,6 +3,7 @@ package Compiler.Expressions;
 import Compiler.Expression;
 import Compiler.Operator;
 import Compiler.Compilable;
+import Compiler.Assembler;
 
 import java.util.HashMap;
 
@@ -30,12 +31,9 @@ public class Operation extends Expression {
     }
 
     @Override
-    public String compile(HashMap<String, Compilable> scope) {
-        String result = "";
-
-        result += left.compile(scope) + right.compile(scope);
-        result += op.compile();
-
-        return result;
+    public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        left.compile(scope, assembler);
+        right.compile(scope, assembler);
+        op.compile(assembler);
     }
 }

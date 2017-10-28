@@ -1,12 +1,12 @@
 package Compiler.Constants;
 
 import Compiler.Constant;
-import Compiler.Expression;
+
 import java.util.HashMap;
 import Compiler.Compilable;
+import Compiler.Assembler;
 
 import static Compiler.Instruction.LDC;
-import static Compiler.Instruction.NLINE;
 
 
 
@@ -18,7 +18,7 @@ public class Integer extends Constant {
     }
 
     @Override
-    public String compile(HashMap<String, Compilable> scope) {
-        return LDC + value + NLINE;
+    public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        assembler.addInstruction(LDC, value);
     }
 }

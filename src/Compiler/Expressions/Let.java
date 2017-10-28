@@ -3,6 +3,7 @@ package Compiler.Expressions;
 import Compiler.Definition;
 import Compiler.Expression;
 import Compiler.Compilable;
+import Compiler.Assembler;
 
 import java.util.HashMap;
 
@@ -24,7 +25,8 @@ public class Let extends Expression {
     }
 
     @Override
-    public String compile(HashMap<String, Compilable> scope) {
-        return defn.compile(scope) + expr.compile(scope);
+    public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        defn.compile(scope, assembler);
+        expr.compile(scope, assembler);
     }
 }
