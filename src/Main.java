@@ -1,4 +1,6 @@
 import Compiler.Definitions.FunctionDef;
+import Compiler.Distributions.Bernoulli;
+import Compiler.Distributions.Beta;
 import Compiler.Expression;
 import Compiler.Expressions.FunctionCall;
 import Compiler.Expressions.Id;
@@ -15,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+import jasmin.parser;
 
 public class Main {
 
@@ -33,15 +36,22 @@ public class Main {
                 }),
                         new FunctionCall(new Id("funcA"), new Expression[] {new Integer("7"), new Integer("5")})));
 
+
+        Program bernoulli = new Program(new Id("Bernoulli"),
+                new Bernoulli(0.7f));
+
+        Program beta = new Program(new Id("Beta"),
+                new Beta(4, 5));
+
         Assembler assembler = new Assembler();
-        test2.compile(assembler);
+        beta.compile(assembler);
 
         String result = assembler.assemble();
 
         System.out.println(result);
 
         try {
-            PrintWriter writer = new PrintWriter("./output/Addition" + ".j", "UTF-8");
+            PrintWriter writer = new PrintWriter("./output/test.j", "UTF-8");
             writer.write(result);
             writer.close();
         } catch (FileNotFoundException e) {
@@ -49,5 +59,9 @@ public class Main {
         } catch (UnsupportedEncodingException e) {
             System.out.println("Unable to encode data.");
         }
+
+        jasmin.Main a = new jasmin.Main();
+
+        a.assemble("./output/test.j");
     }
 }

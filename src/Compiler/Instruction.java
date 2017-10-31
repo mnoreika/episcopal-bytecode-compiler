@@ -17,7 +17,9 @@ public enum Instruction {
     PLUS("iadd"),
     MULT("imul"),
     ILOAD("iload"),
-    IRETURN("ireturn");
+    IRETURN("ireturn"),
+    BERNOULLI("invokestatic Distributions/Bernoulli(F)I"),
+    BETA("invokestatic Distributions/Beta(II)F");
 
     private String value;
 

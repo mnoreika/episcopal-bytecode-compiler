@@ -11,10 +11,8 @@
 .limit stack 20
 .limit locals 20
 getstatic java/lang/System/out Ljava/io/PrintStream;
-ldc 6
-ldc 7
-invokestatic Function/funcA(II)I
-
+ldc 0.2
+invokestatic Distributions/Bernoulli(F)I
 invokestatic java/lang/String/valueOf(I)Ljava/lang/String;
 invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 return

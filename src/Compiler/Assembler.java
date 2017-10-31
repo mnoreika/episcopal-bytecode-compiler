@@ -19,6 +19,8 @@ public class Assembler {
             result.append("\n");
         }
 
+        result.append("\n");
+
         for (Assembler func : functions) {
             ArrayList<Object> funcInstructions = func.getIntructions();
 
@@ -26,6 +28,7 @@ public class Assembler {
                 result.append(inst);
                 result.append("\n");
             }
+            result.append("\n");
         }
 
         return result.toString();

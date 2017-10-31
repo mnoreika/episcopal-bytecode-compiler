@@ -33,7 +33,7 @@ public class Program {
 
         expr.compile(scope, assembler);
 
-        assembler.addInstruction("invokestatic java/lang/String/valueOf(I)Ljava/lang/String;");
+        assembler.addInstruction("invokestatic java/lang/String/valueOf(F)Ljava/lang/String;");
         assembler.addInstruction("invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V");
         assembler.addInstruction(RETURN);
         assembler.addInstruction(ENDMETHOD);
