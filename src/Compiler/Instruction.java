@@ -19,7 +19,9 @@ public enum Instruction {
     ILOAD("iload"),
     IRETURN("ireturn"),
     BERNOULLI("invokestatic Distributions/Bernoulli(F)I"),
-    BETA("invokestatic Distributions/Beta(II)F");
+    BETA("invokestatic Distributions/Beta(II)F"),
+    FLIP("invokestatic Distributions/Flip(F)Z"),
+    NORMAL("invokestatic Distributions/Normal(FF)F");
 
     private String value;
 

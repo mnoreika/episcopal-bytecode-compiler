@@ -1,5 +1,6 @@
 package Compiler;
 
+import Compiler.Definitions.FunctionDef;
 import Compiler.Expressions.Id;
 
 import java.util.HashMap;
@@ -9,18 +10,18 @@ import static Compiler.Instruction.*;
 public class Program {
     private Id id;
     private Expression expr;
-    private Query query;
+    private FunctionDef[] queries;
 
     public Program(Id id, Expression expr) {
         this.id = id;
         this.expr = expr;
-        this.query = null;
+        this.queries = null;
     }
 
-    public Program(Id id, Expression expr, Query query) {
+    public Program(Id id, Expression expr, FunctionDef[] queries) {
         this.id = id;
         this.expr = expr;
-        this.query = query;
+        this.queries = queries;
     }
 
     public void compile(Assembler assembler) {
@@ -33,9 +34,19 @@ public class Program {
 
         expr.compile(scope, assembler);
 
-        assembler.addInstruction("invokestatic java/lang/String/valueOf(F)Ljava/lang/String;");
+        if (queries != null) {
+            for (FunctionDef query : queries) {
+                query.compile(scope, assembler);
+            }
+        }
+
+        assembler.addInstruction("invokestatic java/lang/String/valueOf(I)Ljava/lang/String;");
         assembler.addInstruction("invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V");
         assembler.addInstruction(RETURN);
         assembler.addInstruction(ENDMETHOD);
+    }
+
+    public String getName() {
+        return id.getName();
     }
 }

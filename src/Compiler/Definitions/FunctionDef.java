@@ -17,6 +17,7 @@ public class FunctionDef extends Definition {
     private Id[] args;
     private Expression[] exprs;
 
+
     public FunctionDef(Id id, Expression[] expr) {
         this.id = id;
         this.args = null;
@@ -37,6 +38,8 @@ public class FunctionDef extends Definition {
             Assembler function = new Assembler();
 
             function.addInstruction(".method public static " + id.getName() + "(II)I");
+            function.addInstruction(".limit stack 10");
+            function.addInstruction(".limit locals 10");
 
             for (Expression expr : exprs) {
                 expr.compile(scope, function);

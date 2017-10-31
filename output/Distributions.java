@@ -51,6 +51,4 @@ public class Distributions {
 
         return result;
     }
-
-
 }

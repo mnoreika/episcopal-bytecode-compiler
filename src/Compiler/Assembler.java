@@ -43,8 +43,11 @@ public class Assembler {
     }
 
     public void addFunction(Assembler function) {
-
         functions.add(function);
+    }
+
+    public void addFunctionSignature(String functionName) {
+
     }
 
     public ArrayList<Object> getIntructions() {
