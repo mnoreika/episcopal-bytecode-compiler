@@ -11,7 +11,7 @@
 getstatic java/lang/System/out Ljava/io/PrintStream;
 ldc 1
 ldc 41
-iadd
+invokestatic Operations/add(IF)F
 invokestatic java/lang/String/valueOf(I)Ljava/lang/String;
 invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 return

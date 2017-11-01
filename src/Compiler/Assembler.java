@@ -28,6 +28,7 @@ public class Assembler {
                 result.append(inst);
                 result.append("\n");
             }
+
             result.append("\n");
         }
 

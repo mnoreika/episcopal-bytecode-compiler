@@ -1,4 +1,4 @@
-.class public Function
+.class public Test
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -9,11 +9,10 @@
 .limit stack 20
 .limit locals 20
 getstatic java/lang/System/out Ljava/io/PrintStream;
-ldc 7
-ldc 5
-invokestatic java/lang/String/valueOf(I)Ljava/lang/String;
+ldc 2.2
+ldc 1
+invokestatic Operations/add(FI)LResult;
+invokestatic java/lang/String/valueOf([LResult)Ljava/lang/String;
 invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 return
 .end method
-
-

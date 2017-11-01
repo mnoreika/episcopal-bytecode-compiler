@@ -24,7 +24,7 @@ iload 0
 iload 0
 iload 1
 imul
-iadd
+invokestatic Operations/add(IF)F
 ireturn
 .end method
 

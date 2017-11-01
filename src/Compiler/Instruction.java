@@ -14,7 +14,7 @@ public enum Instruction {
     ENDMETHOD(".end method"),
     RETURN("return"),
     LDC("ldc"),
-    PLUS("iadd"),
+    PLUS("invokestatic Operations/add(IF)F"),
     MULT("imul"),
     ILOAD("iload"),
     IRETURN("ireturn"),
