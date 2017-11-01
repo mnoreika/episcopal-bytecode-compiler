@@ -6,8 +6,7 @@ import java.util.HashMap;
 import Compiler.Compilable;
 import Compiler.Assembler;
 
-import static Compiler.Instruction.LDC;
-
+import static Compiler.Instruction.*;
 
 
 public class Integer extends Constant {
@@ -19,6 +18,9 @@ public class Integer extends Constant {
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        assembler.addInstruction(NEWVAR);
+        assembler.addInstruction(DUP);
         assembler.addInstruction(LDC, value);
+        assembler.addInvokeInstruction(TYPEINT);
     }
 }

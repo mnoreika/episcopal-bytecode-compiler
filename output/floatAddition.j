@@ -1,4 +1,4 @@
-.class public Addition
+.class public floatAddition
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -11,11 +11,11 @@
 
 new Variable
 dup
-ldc 12
-invokespecial Variable/<init>(I)V
+ldc 41.0
+invokespecial Variable/<init>(F)V
 new Variable
 dup
-ldc 0.5
+ldc 1.0
 invokespecial Variable/<init>(F)V
 invokestatic Operations/add(LVariable;LVariable;)LVariable;
 getstatic java/lang/System/out Ljava/io/PrintStream;

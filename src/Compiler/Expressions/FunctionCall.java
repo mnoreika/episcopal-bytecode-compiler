@@ -22,13 +22,17 @@ public class FunctionCall extends Expression {
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        int numberOfArguments = 0;
+
         if (args != null) {
             for (Expression arg : args) {
                 arg.compile(scope, assembler);
             }
+
+            numberOfArguments = args.length;
         }
 
-        assembler.addInstruction(INVSTATIC + "Function/" + id.getName() + "(II)I");
+        assembler.addFunctionCall(id.getName(), numberOfArguments);
     }
 
 

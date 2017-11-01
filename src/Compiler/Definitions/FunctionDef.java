@@ -7,7 +7,7 @@ import Compiler.Compilable;
 import Compiler.Assembler;
 
 import static Compiler.Instruction.ENDMETHOD;
-import static Compiler.Instruction.IRETURN;
+import static Compiler.Instruction.ARETURN;
 
 
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class FunctionDef extends Definition {
         } else {
             Assembler function = new Assembler();
 
-            function.addInstruction(".method public static " + id.getName() + "(II)I");
+            function.addFunctionSignature(id.getName(), args.length);
             function.addInstruction(".limit stack 10");
             function.addInstruction(".limit locals 10");
 
@@ -45,7 +45,7 @@ public class FunctionDef extends Definition {
                 expr.compile(scope, function);
             }
 
-            function.addInstruction(IRETURN);
+            function.addInstruction(ARETURN);
             function.addInstruction(ENDMETHOD);
 
             assembler.addFunction(function);

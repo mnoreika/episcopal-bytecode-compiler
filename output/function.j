@@ -1,4 +1,4 @@
-.class public Function
+.class public function
 .super java/lang/Object
 .method public <init>()V
    aload_0

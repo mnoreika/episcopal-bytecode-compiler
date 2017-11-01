@@ -1,4 +1,4 @@
-.class public Addition
+.class public boolean
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -11,13 +11,8 @@
 
 new Variable
 dup
-ldc 12
-invokespecial Variable/<init>(I)V
-new Variable
-dup
-ldc 0.5
-invokespecial Variable/<init>(F)V
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
+ldc 1
+invokespecial Variable/<init>(Z)V
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

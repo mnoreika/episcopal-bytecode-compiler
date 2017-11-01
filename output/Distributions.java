@@ -3,17 +3,18 @@ import java.util.Random;
 public class Distributions {
     private static Random randGenerator = new Random();
 
-    public static int Bernoulli(float p) {
+    public static Variable Bernoulli(Variable p) {
+        float pValue = (Float) p.getValue();
         int result;
 
         float genValue = randGenerator.nextFloat();
 
-        if (genValue <= p)
-            result =  1;
+        if (genValue <= pValue)
+            result = 1;
         else
             result = 0;
 
-        return result;
+        return new Variable(result);
     }
 
     public static float Beta(int a, int b) {
@@ -25,7 +26,8 @@ public class Distributions {
         return (float) result;
     }
 
-    public static boolean Flip(float p) {
+    public static Variable Flip(Variable p) {
+        float pValue = (Float) p.getValue();
         boolean result;
 
         double genValue = randGenerator.nextDouble();

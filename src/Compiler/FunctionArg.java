@@ -3,7 +3,7 @@ package Compiler;
 import Compiler.Expressions.Id;
 import java.util.HashMap;
 
-import static Compiler.Instruction.ILOAD;
+import static Compiler.Instruction.ALOAD;
 
 public class FunctionArg extends Expression {
     private Id argument;
@@ -16,6 +16,6 @@ public class FunctionArg extends Expression {
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
-        assembler.addInstruction(ILOAD, position);
+        assembler.addInstruction(ALOAD, position);
     }
 }

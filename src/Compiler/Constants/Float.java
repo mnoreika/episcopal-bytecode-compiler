@@ -6,7 +6,7 @@ import Compiler.Assembler;
 
 import java.util.HashMap;
 
-import static Compiler.Instruction.LDC;
+import static Compiler.Instruction.*;
 
 public class Float extends Constant {
     private String value;
@@ -17,6 +17,9 @@ public class Float extends Constant {
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        assembler.addInstruction(NEWVAR);
+        assembler.addInstruction(DUP);
         assembler.addInstruction(LDC, value);
+        assembler.addInvokeInstruction(TYPEFLOAT);
     }
 }

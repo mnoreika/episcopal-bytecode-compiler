@@ -1,14 +1,33 @@
 public class Operations {
-    public static Result add(int a, float b) {
-        float sum = a + b;
 
-        return new Result(sum);
+    public static Variable add(Variable a, Variable b) {
+        Object valueA = a.getValue();
+        Object valueB = b.getValue();
+
+        Variable result = null;
+
+        if (valueA instanceof Integer && valueB instanceof Integer) {
+            result = new Variable((Integer) valueA + (Integer) valueB);
+        }
+        else if (valueA instanceof Float && valueB instanceof Float) {
+            result = new Variable((Float) valueA + (Float) valueB);
+        }
+        else if (valueA instanceof Float && valueB instanceof Integer) {
+            result = new Variable((Float) valueA + (Integer) valueB);
+        }
+        else if (valueA instanceof Integer && valueB instanceof Float) {
+            result = new Variable((Integer) valueA + (Float) valueB);
+        }
+
+        return result;
     }
 
-    public static Result add(float a, int b) {
-        float sum = a + b;
+    public static Variable equals(Variable a, Variable b) {
+        Object valueA = a.getValue();
+        Object valueB = b.getValue();
 
-        return new Result(sum);
+        Variable result = new Variable(valueA.equals(valueB));
+
+        return result;
     }
-
 }

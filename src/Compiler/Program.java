@@ -40,8 +40,9 @@ public class Program {
             }
         }
 
-        assembler.addInstruction("invokestatic java/lang/String/valueOf(I)Ljava/lang/String;");
-        assembler.addInstruction("invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V");
+        assembler.addInstruction("getstatic java/lang/System/out Ljava/io/PrintStream;");
+        assembler.addInstruction("swap");
+        assembler.addInstruction("invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V");
         assembler.addInstruction(RETURN);
         assembler.addInstruction(ENDMETHOD);
     }

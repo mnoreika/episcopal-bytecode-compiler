@@ -1,11 +1,14 @@
+import Compiler.Constants.Boolean;
 import Compiler.Constants.Integer;
+import Compiler.Constants.Float;
 import Compiler.Definitions.FunctionDef;
+import Compiler.Distributions.Bernoulli;
 import Compiler.Expression;
 import Compiler.Expressions.FunctionCall;
 import Compiler.Expressions.Id;
 import Compiler.Expressions.Let;
 import Compiler.Expressions.Operation;
-import Compiler.Operators.Multiply;
+import Compiler.Operators.Equals;
 import Compiler.Operators.Plus;
 import Compiler.Program;
 import Compiler.Assembler;
@@ -26,28 +29,67 @@ public class CompilerTest {
     }
 
     @Test
-    public void addition() throws Exception {
-       Program addition = new Program(new Id("Addition"),
-                new Let(new FunctionDef(new Id("x"), new Expression[] {new Integer("1")}),
-                        new Let(new FunctionDef(new Id("y"), new Expression[] {new Integer("41")}),
-                                new Let(new FunctionDef(new Id("sum"), new Expression[] {
-                                        new Operation(new Plus(), new Id("x"), new Id("y"))}),
-                                        new Id("sum")))));
+    public void integerAddition() throws Exception {
+       Program addition = new Program(new Id("integerAddition"),
+               new Operation(new Plus(), new Integer("41"), new Integer("1")));
 
        assertCompilation(addition, "42");
     }
 
     @Test
+    public void floatAddition() throws Exception {
+        Program addition = new Program(new Id("floatAddition"),
+                new Operation(new Plus(), new Float("41.0"), new Float("1.0")));
+
+        assertCompilation(addition, "42.0");
+    }
+
+    @Test
+    public void floatIntAddition() throws Exception {
+        Program addition = new Program(new Id("floatIntAddition"),
+                new Operation(new Plus(), new Float("41.0"), new Integer("1")));
+
+        assertCompilation(addition, "42.0");
+    }
+
+    @Test
+    public void intFloatAddition() throws Exception {
+        Program addition = new Program(new Id("intFloatAddition"),
+                new Operation(new Plus(), new Integer("5"), new Float("37.0")));
+
+        assertCompilation(addition, "42.0");
+    }
+
+    @Test
+    public void booleanResult() throws Exception {
+        Program addition = new Program(new Id("boolean"), new Boolean("1"));
+
+        assertCompilation(addition, "true");
+    }
+
+    @Test
+    public void equalsOperator() throws Exception {
+        Program equalsOperator = new Program(new Id("equalsOperator"),
+                new Operation(new Equals(), new Integer("42"), new Integer("42")));
+
+        assertCompilation(equalsOperator, "true");
+    }
+
+    @Test
     public void function() throws Exception {
-        Program function = new Program(new Id("Function"),
+        Program function = new Program(new Id("function"),
                 new Let(new FunctionDef(new Id ("funcA"), new Id[] {new Id("x"), new Id("y")}, new Expression[] {
                         new Operation(new Plus(), new FunctionArg(0, new Id("x")),
-                                new Operation(new Multiply(), new FunctionArg(0, new Id("x")), new FunctionArg(1, new Id("y"))))
+                                new Operation(new Plus(), new FunctionArg(0, new Id("x")), new FunctionArg(1, new Id("y"))))
                 }),
-                        new FunctionCall(new Id("funcA"), new Expression[] {new Integer("7"), new Integer("5")})));
+                        new FunctionCall(new Id("Function/funcA"), new Expression[] {new Integer("15"), new Integer("12")})));
 
         assertCompilation(function, "42");
     }
+
+
+
+
 
     private void assertCompilation(Program program, String expectedOutcome) throws InterruptedException {
         /* Compile the program */
