@@ -77,9 +77,20 @@ public class Main {
                 }),
                         new FunctionCall(new Id("Function/funcA"), new Expression[] {new Integer("7"), new Integer("5")})));
 
+        Program nestedFunction = new Program(new Id("nestedFunctions"),
+                new Let(new FunctionDef(new Id ("funcA"), new Id[] {new Id("x")}, new Expression[] {
+                        new Operation(new Plus(), new Integer("5"), new FunctionArg(0, new Id("x")))
+                }),
+                        new Let(new FunctionDef(new Id("funcB"), new Id[] {new Id("y")}, new Expression[] {
+                                new Operation(new Plus(),
+                                        new FunctionCall(new Id("nestedFunctions/funcA"), new Expression[] {new FunctionArg(0, new Id("y"))}),
+                                        new Float("20.5"))
+                        }),
+                                new FunctionCall(new Id("nestedFunctions/funcB"), new Expression[] {new Integer("15"), new Integer("12")}))));
+
 
         Assembler assembler = new Assembler();
-        functionsNested.compile(assembler);
+        nestedFunction.compile(assembler);
 
         String result = assembler.assemble();
 

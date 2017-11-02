@@ -87,11 +87,37 @@ public class CompilerTest {
         assertCompilation(function, "42");
     }
 
+    /*
+    * episcopal nestedFunctions =
+    *   let funcA x = 5 + x in
+    *   let funcB y = funcA y + 20.5 in
+    *   funcB 7
+    * */
+    @Test
+    public void nestedFunctions() throws Exception {
+        Program function = new Program(new Id("nestedFunctions"),
+                new Let(new FunctionDef(new Id ("funcA"), new Id[] {new Id("x")}, new Expression[] {
+                        new Operation(new Plus(), new Integer("5"), new FunctionArg(0, new Id("x")))
+                }),
+                new Let(new FunctionDef(new Id("funcB"), new Id[] {new Id("y")}, new Expression[] {
+                        new Operation(new Plus(),
+                                new FunctionCall(new Id("nestedFunctions/funcA"), new Expression[] {new FunctionArg(0, new Id("y"))}),
+                                new Float("20.5"))
+                }),
+                        new FunctionCall(new Id("nestedFunctions/funcB"), new Expression[] {new Integer("7")}))));
 
+        assertCompilation(function, "32.5");
+    }
 
+    @Test
+    public void bernoulliSample() throws Exception {
+        Program bernoulliSample = new Program(new Id("bernoulliSample"),
+                new Bernoulli(new Float("0.7")));
 
+        assertVariedCompilation(bernoulliSample, new String[] {"0", "1"});
+    }
 
-    private void assertCompilation(Program program, String expectedOutcome) throws InterruptedException {
+    private String compileAndRunProgram(Program program) {
         /* Compile the program */
         program.compile(assembler);
         String compiledProgram = assembler.assemble();
@@ -114,7 +140,7 @@ public class CompilerTest {
         try {
             Process jasmin = processBuilder.start();
             jasmin.waitFor();
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Failed to assemble the JASMIN file.");
         }
 
@@ -133,8 +159,18 @@ public class CompilerTest {
             System.out.println("Unable to read the program's output.");
         }
 
+        return outcome;
+    }
+
+    private void assertVariedCompilation(Program program, String[] possibleOutcomes) {
+        
+    }
+
+
+    private void assertCompilation(Program program, String expectedOutcome) {
+        String outcome = compileAndRunProgram(program);
+
         /* Assert if the outcome is as expected */
         assertEquals(expectedOutcome, outcome);
-
     }
 }

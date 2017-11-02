@@ -11,13 +11,9 @@
 
 new Variable
 dup
-ldc 2
+ldc 7
 invokespecial Variable/<init>(I)V
-new Variable
-dup
-ldc 5
-invokespecial Variable/<init>(I)V
-invokestatic funcB(LVariable;LVariable;)LVariable;
+invokestatic nestedFunctions/funcB(LVariable;)LVariable;
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V
@@ -27,25 +23,24 @@ return
 .method public static funcA(LVariable;)LVariable;
 .limit stack 10
 .limit locals 10
-aload 0
+new Variable
+dup
+ldc 5
+invokespecial Variable/<init>(I)V
 aload 0
 invokestatic Operations/add(LVariable;LVariable;)LVariable;
 areturn
 .end method
 
-.method public static funcB(LVariable;LVariable;)LVariable;
+.method public static funcB(LVariable;)LVariable;
 .limit stack 10
 .limit locals 10
+aload 0
+invokestatic nestedFunctions/funcA(LVariable;)LVariable;
 new Variable
 dup
-ldc 0.1
+ldc 20.5
 invokespecial Variable/<init>(F)V
-invokestatic Distributions/Bernoulli(LVariable;)LVariable;
-new Variable
-dup
-ldc 7
-invokespecial Variable/<init>(I)V
-invokestatic funcA(LVariable;)LVariable;
 invokestatic Operations/add(LVariable;LVariable;)LVariable;
 areturn
 .end method

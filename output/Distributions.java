@@ -17,13 +17,11 @@ public class Distributions {
         return new Variable(result);
     }
 
-    public static float Beta(int a, int b) {
-        int normConstant = gamma(a + b) / (gamma(a) * gamma(b));
-        double genValue = randGenerator.nextFloat();
+    public static Variable Beta(int a, int b) {
+        float mean = a / (a + b);
+        float std = (float) Math.sqrt((a*b)/((Math.pow((a + b), 2)) * (a + b + 1)));
 
-        double result = Math.pow(genValue, (a - 1)) * Math.pow((1 - genValue), (b - 1)) * normConstant;
-
-        return (float) result;
+        return Normal(mean, std);
     }
 
     public static Variable Flip(Variable p) {
@@ -32,25 +30,15 @@ public class Distributions {
 
         double genValue = randGenerator.nextDouble();
 
-        if (genValue <= p)
+        if (genValue <= pValue)
             result = true;
         else
             result = false;
 
-        return result;
+        return new Variable(result);
     }
 
-    public static float Normal(float mean, float standardDeviation) {
-        return  (float) randGenerator.nextGaussian() * standardDeviation + mean;
-    }
-
-    private static int gamma(int n) {
-        int result = 1;
-
-        for (int i = 1; i < n; i++) {
-            result *= i;
-        }
-
-        return result;
+    public static Variable Normal(float mean, float standardDeviation) {
+        return  new Variable((float) randGenerator.nextGaussian() * standardDeviation + mean);
     }
 }
