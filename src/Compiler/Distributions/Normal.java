@@ -1,5 +1,6 @@
 package Compiler.Distributions;
 
+import Compiler.Constants.Float;
 import Compiler.Distribution;
 import Compiler.Compilable;
 import Compiler.Assembler;
@@ -10,18 +11,18 @@ import static Compiler.Instruction.LDC;
 import static Compiler.Instruction.NORMAL;
 
 public class Normal extends Distribution {
-    private float mean;
-    private float std;
+    private Float mean;
+    private Float std;
 
-    public Normal(float mean, float std) {
+    public Normal(Float mean, Float std) {
         this.mean = mean;
         this.std = std;
     }
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
-        assembler.addInstruction(LDC, mean);
-        assembler.addInstruction(LDC, std);
+        mean.compile(scope, assembler);
+        std.compile(scope, assembler);
         assembler.addInstruction(NORMAL);
     }
 }

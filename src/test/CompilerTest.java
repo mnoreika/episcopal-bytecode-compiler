@@ -3,6 +3,9 @@ import Compiler.Constants.Integer;
 import Compiler.Constants.Float;
 import Compiler.Definitions.FunctionDef;
 import Compiler.Distributions.Bernoulli;
+import Compiler.Distributions.Beta;
+import Compiler.Distributions.Flip;
+import Compiler.Distributions.Normal;
 import Compiler.Expression;
 import Compiler.Expressions.FunctionCall;
 import Compiler.Expressions.Id;
@@ -19,6 +22,7 @@ import org.junit.Test;
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CompilerTest {
     private Assembler assembler;
@@ -117,6 +121,60 @@ public class CompilerTest {
         assertVariedCompilation(bernoulliSample, new String[] {"0", "1"});
     }
 
+    @Test
+    public void betaSample() throws Exception {
+        Program betaSample = new Program(new Id("BetaSample"),
+                new Beta(new Float("4.0"), new Float("5.0")));
+
+        assertCompilationInRange(betaSample, 0, 1);
+    }
+
+    @Test
+    public void flipSample() throws Exception {
+        Program flipSample = new Program(new Id("FlipSample"),
+                new Flip(new Float("0.7")));
+
+        assertVariedCompilation(flipSample, new String[] {"true", "false"});
+    }
+
+    @Test
+    public void normalSample() throws Exception {
+        Program normalSample = new Program(new Id("NormalSample"),
+                new Normal(new Float("10.0"), new Float("4.0")));
+
+        assertCompilationInRange(normalSample, 0, 100);
+    }
+
+    private void assertCompilationInRange(Program program, int rangeStart, int rangeEnd) {
+        String outcome = compileAndRunProgram(program);
+        java.lang.Float result = java.lang.Float.valueOf(outcome);
+
+        System.out.println(result);
+        assertTrue(result >= rangeStart);
+        assertTrue(result <= rangeEnd);
+    }
+
+    private void assertVariedCompilation(Program program, String[] possibleOutcomes) {
+        String outcome = compileAndRunProgram(program);
+
+        boolean matchFound = false;
+
+        for (int i = 0; i < possibleOutcomes.length; i++) {
+            if (outcome.equals(possibleOutcomes[i])) {
+                matchFound = true;
+            }
+        }
+
+        assertTrue(matchFound);
+    }
+
+    private void assertCompilation(Program program, String expectedOutcome) {
+        String outcome = compileAndRunProgram(program);
+
+        /* Assert if the outcome is as expected */
+        assertEquals(expectedOutcome, outcome);
+    }
+
     private String compileAndRunProgram(Program program) {
         /* Compile the program */
         program.compile(assembler);
@@ -160,17 +218,5 @@ public class CompilerTest {
         }
 
         return outcome;
-    }
-
-    private void assertVariedCompilation(Program program, String[] possibleOutcomes) {
-        
-    }
-
-
-    private void assertCompilation(Program program, String expectedOutcome) {
-        String outcome = compileAndRunProgram(program);
-
-        /* Assert if the outcome is as expected */
-        assertEquals(expectedOutcome, outcome);
     }
 }
