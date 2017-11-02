@@ -5,6 +5,10 @@ import Compiler.Distributions.Beta;
 import Compiler.Expression;
 import Compiler.Expressions.FunctionCall;
 import Compiler.Expressions.Id;
+import Compiler.Expressions.Observation;
+import Compiler.Expressions.Operation;
+import Compiler.Operators.Equals;
+import Compiler.Operators.Plus;
 import Compiler.Program;
 import Compiler.Constants.Integer;
 import Compiler.Constants.Float;
@@ -13,13 +17,19 @@ import Compiler.Assembler;
 
 public class Main {
 
+    /*
+    * episcopal observation =
+    * observe 42 == 42 in 35 + 7
+    * */
     public static void main(String[] args) {
-        Program betaSample = new Program(new Id("BetaSample"),
-                new Beta(new Float("4.0"), new Float("5.0")));
+        Program observation = new Program(new Id("Observation"),
+                new Observation(
+                        new Operation(new Equals(), new Integer("42"), new Integer("42")),
+                        new Operation(new Plus(), new Integer("42"), new Integer("42"))));
 
 
         Assembler assembler = new Assembler();
-        betaSample.compile(assembler);
+        observation.compile(assembler);
 
         String result = assembler.assemble();
 

@@ -13,6 +13,8 @@ public class Variable {
         this.value = new Boolean(value);
     }
 
+    public Variable(String value) {this.value = value;}
+
     public Object getValue() {
         return value;
     }

@@ -30,4 +30,12 @@ public class Operations {
 
         return result;
     }
+
+    public static int getObservResult(Variable bool) {
+        return (Boolean) bool.getValue() ? 0 : 1;
+    }
+
+    public static Variable makeFailObject() {
+        return new Variable("Observation failed.");
+    }
 }
