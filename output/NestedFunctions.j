@@ -1,4 +1,4 @@
-.class public NestedFunctions
+.class public  NestedFunctions
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -9,40 +9,40 @@
 .limit stack 20
 .limit locals 20
 
-new Variable
+new lib/Variable
 dup
-ldc 2
-invokespecial Variable/<init>(I)V
-new Variable
-dup
-ldc 5
-invokespecial Variable/<init>(I)V
-invokestatic NestedFunctions/funcB(LVariable;LVariable;)LVariable;
+ldc 7
+invokespecial lib/Variable/<init>(I)V
+invokestatic NestedFunctions/funcB(Llib/Variable;)Llib/Variable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
-swap
+swap 
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V
 return
 .end method
 
-.method public static funcA(LVariable;)LVariable;
-.limit stack 10
-.limit locals 10
+.method public static funcA(Llib/Variable;)Llib/Variable;
+.limit stack 20
+.limit locals 20
+new lib/Variable
+dup
+ldc 5
+invokespecial lib/Variable/<init>(I)V
 aload 0
-aload 0
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
+invokestatic lib/Operations/add(Llib/Variable;Llib/Variable;)Llib/Variable;
 areturn
 .end method
 
-.method public static funcB(LVariable;LVariable;)LVariable;
-.limit stack 10
-.limit locals 10
-new Variable
+.method public static funcB(Llib/Variable;)Llib/Variable;
+.limit stack 20
+.limit locals 20
+aload 0
+invokestatic NestedFunctions/funcA(Llib/Variable;)Llib/Variable;
+new lib/Variable
 dup
-ldc 40.0
-invokespecial Variable/<init>(F)V
-aload 1
-invokestatic NestedFunctions/funcA(LVariable;)LVariable;
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
+ldc 20.5
+invokespecial lib/Variable/<init>(F)V
+invokestatic lib/Operations/add(Llib/Variable;Llib/Variable;)Llib/Variable;
 areturn
 .end method
 

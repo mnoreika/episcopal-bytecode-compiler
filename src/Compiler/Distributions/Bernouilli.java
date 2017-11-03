@@ -1,7 +1,7 @@
 package Compiler.Distributions;
 
-import Compiler.Constants.Float;
 import Compiler.Expressions.Distribution;
+import Compiler.Expression;
 import Compiler.Compilable;
 import Compiler.Assembler;
 import java.util.HashMap;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import static Compiler.Instruction.*;
 
 public class Bernouilli extends Distribution {
-    private Float p;
+    private Expression p;
 
-    public Bernouilli(Float p) {
+    public Bernouilli(Expression p) {
         this.p = p;
     }
 

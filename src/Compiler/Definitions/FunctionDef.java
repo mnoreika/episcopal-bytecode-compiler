@@ -6,11 +6,10 @@ import Compiler.Expressions.Id;
 import Compiler.Compilable;
 import Compiler.Assembler;
 
-import static Compiler.Instruction.ENDMETHOD;
-import static Compiler.Instruction.ARETURN;
-
 
 import java.util.HashMap;
+
+import static Compiler.Instruction.*;
 
 public class FunctionDef extends Definition {
     private Id id;
@@ -38,8 +37,8 @@ public class FunctionDef extends Definition {
             Assembler function = new Assembler();
 
             function.addFunctionSignature(id.getName(), args.length);
-            function.addInstruction(".limit stack 10");
-            function.addInstruction(".limit locals 10");
+            function.addInstruction(STACKLIMIT);
+            function.addInstruction(LOCALSLIMIT);
 
             for (Expression expr : exprs) {
                 expr.compile(scope, function);

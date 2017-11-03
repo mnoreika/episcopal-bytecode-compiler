@@ -1,4 +1,4 @@
-.class public Function
+.class public  Function
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -9,29 +9,30 @@
 .limit stack 20
 .limit locals 20
 
-new Variable
+new lib/Variable
 dup
 ldc 15
-invokespecial Variable/<init>(I)V
-new Variable
+invokespecial lib/Variable/<init>(I)V
+new lib/Variable
 dup
 ldc 12
-invokespecial Variable/<init>(I)V
-invokestatic Function/funcA(LVariable;LVariable;)LVariable;
+invokespecial lib/Variable/<init>(I)V
+invokestatic Function/funcA(Llib/Variable;Llib/Variable;)Llib/Variable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
-swap
+swap 
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V
 return
 .end method
 
-.method public static funcA(LVariable;LVariable;)LVariable;
-.limit stack 10
-.limit locals 10
+.method public static funcA(Llib/Variable;Llib/Variable;)Llib/Variable;
+.limit stack 20
+.limit locals 20
 aload 0
 aload 0
 aload 1
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
+invokestatic lib/Operations/add(Llib/Variable;Llib/Variable;)Llib/Variable;
+invokestatic lib/Operations/add(Llib/Variable;Llib/Variable;)Llib/Variable;
 areturn
 .end method
 

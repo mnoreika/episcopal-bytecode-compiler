@@ -1,4 +1,4 @@
-.class public NormalSample
+.class public  NormalSample
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -9,24 +9,24 @@
 .limit stack 20
 .limit locals 20
 
-new Variable
+new lib/Variable
 dup
-new Normal
+new lib/Normal
 dup
-new Variable
+new lib/Variable
 dup
 ldc 20.0
-invokespecial Variable/<init>(F)V
-new Variable
+invokespecial lib/Variable/<init>(F)V
+new lib/Variable
 dup
 ldc 36.0
-invokespecial Variable/<init>(F)V
-invokespecial Normal/<init>(LVariable;LVariable;)V
-invokespecial Variable/<init>(LDistribution;)V
-invokevirtual Variable/sample()LVariable;
+invokespecial lib/Variable/<init>(F)V
+invokespecial lib/Normal/<init>(Llib/Variable;Llib/Variable;)V
+invokespecial lib/Variable/<init>(Llib/Distribution;)V
+invokevirtual lib/Variable/sample()Llib/Variable;
 Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
-swap
+swap 
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V
 return
 .end method

@@ -1,4 +1,4 @@
-.class public IntegerSubtraction
+.class public  IntegerSubtraction
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -9,18 +9,18 @@
 .limit stack 20
 .limit locals 20
 
-new Variable
+new lib/Variable
 dup
 ldc 100
-invokespecial Variable/<init>(I)V
-new Variable
+invokespecial lib/Variable/<init>(I)V
+new lib/Variable
 dup
 ldc 58
-invokespecial Variable/<init>(I)V
-invokestatic Operations/sub(LVariable;LVariable;)LVariable;
+invokespecial lib/Variable/<init>(I)V
+invokestatic lib/Operations/sub(Llib/Variable;Llib/Variable;)Llib/Variable;
 Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
-swap
+swap 
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V
 return
 .end method

@@ -1,7 +1,7 @@
 package Compiler.Distributions;
 
-import Compiler.Constants.Float;
 import Compiler.Expressions.Distribution;
+import Compiler.Expression;
 import Compiler.Compilable;
 import Compiler.Assembler;
 import java.util.HashMap;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import static Compiler.Instruction.*;
 
 public class Flip extends Distribution {
-    private Float p;
+    private Expression p;
 
-    public Flip(Float p) {
+    public Flip(Expression p) {
         this.p = p;
     }
 

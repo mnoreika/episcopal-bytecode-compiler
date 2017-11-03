@@ -9,6 +9,7 @@ import static Compiler.Instruction.TYPEVARIABLE;
 public class Assembler {
     private ArrayList<Object> instructions;
     private ArrayList<Assembler> functions;
+    private boolean failLabel;
 
     public Assembler() {
         instructions = new ArrayList<>();

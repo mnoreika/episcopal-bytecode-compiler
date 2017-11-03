@@ -1,13 +1,15 @@
+import Compiler.Definitions.FunctionDef;
 import Compiler.Distributions.Bernouilli;
 import Compiler.Distributions.Beta;
 import Compiler.Expressions.*;
 import Compiler.Operators.Equals;
-import Compiler.Operators.Less;
 import Compiler.Operators.Plus;
+import Compiler.Operators.Sub;
 import Compiler.Program;
 import Compiler.Constants.Integer;
 import Compiler.Constants.Float;
 import Compiler.Assembler;
+import Compiler.Expression;
 
 public class Main {
 
@@ -28,13 +30,24 @@ public class Main {
                         new Operation(new Equals(), new Integer("42"), new Integer("42")),
                         new Operation(new Plus(), new Integer("42"), new Integer("42"))));
 
-        Program less = new Program(new Id("less"),
-                new Operation(new Less(), new Integer("4"), new Integer("9")));
+        Program floatSubtraction = new Program(new Id("FloatSubtraction"),
+                new Operation(new Sub(), new Float("41.0"), new Float("1.0")));
 
-
+        Program function = new Program(new Id("NestedFunctionsWithSharedVar"),
+                new Let(new FunctionDef(new Id ("funcA"), new Id[] {new Id("a")}, new Expression[] {
+                        new Let(new FunctionDef(new Id("funcB"), new Id[] {new Id("x"), new Id("y")}, new Expression[] {
+                                new Operation(new Plus(),
+                                        new Operation(new Plus(), new FunctionArg(0), new FunctionArg(1)),
+                                        new Id("a"))
+                        }),
+                                new FunctionCall(new Id("NestedFunctionsWithSharedVar/funcB"), new Expression[] {
+                                        new Integer("5"), new Integer("7")
+                                }))
+                }),
+                        new FunctionCall(new Id("NestedFunctionsWithSharedVar/funcA"), new Expression[] {new Integer("30")})));
 
         Assembler assembler = new Assembler();
-        less.compile(assembler);
+        function.compile(assembler);
 
         String result = assembler.assemble();
 

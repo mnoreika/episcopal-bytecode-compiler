@@ -1,4 +1,4 @@
-.class public IntFloatDivision
+.class public  IntFloatDivision
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -9,18 +9,18 @@
 .limit stack 20
 .limit locals 20
 
-new Variable
+new lib/Variable
 dup
 ldc 5
-invokespecial Variable/<init>(I)V
-new Variable
+invokespecial lib/Variable/<init>(I)V
+new lib/Variable
 dup
 ldc 37.0
-invokespecial Variable/<init>(F)V
-invokestatic Operations/div(LVariable;LVariable;)LVariable;
+invokespecial lib/Variable/<init>(F)V
+invokestatic lib/Operations/div(Llib/Variable;Llib/Variable;)Llib/Variable;
 Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
-swap
+swap 
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V
 return
 .end method

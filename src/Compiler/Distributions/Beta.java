@@ -1,18 +1,18 @@
 package Compiler.Distributions;
 
-import Compiler.Constants.Float;
 import Compiler.Expressions.Distribution;
 import Compiler.Compilable;
 import Compiler.Assembler;
+import Compiler.Expression;
 import java.util.HashMap;
 
 import static Compiler.Instruction.*;
 
 public class Beta extends Distribution {
-    private Float a;
-    private Float b;
+    private Expression a;
+    private Expression b;
 
-    public Beta(Float a, Float b) {
+    public Beta(Expression a, Expression b) {
         this.a = a;
         this.b = b;
     }

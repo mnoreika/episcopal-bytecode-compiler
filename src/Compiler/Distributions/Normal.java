@@ -1,19 +1,19 @@
 package Compiler.Distributions;
 
-import Compiler.Constants.Float;
 import Compiler.Expressions.Distribution;
 import Compiler.Compilable;
 import Compiler.Assembler;
+import Compiler.Expression;
 
 import java.util.HashMap;
 
 import static Compiler.Instruction.*;
 
 public class Normal extends Distribution {
-    private Float mean;
-    private Float std;
+    private Expression mean;
+    private Expression std;
 
-    public Normal(Float mean, Float std) {
+    public Normal(Expression mean, Expression std) {
         this.mean = mean;
         this.std = std;
     }
