@@ -2,20 +2,16 @@ import Compiler.Constants.Boolean;
 import Compiler.Constants.Integer;
 import Compiler.Constants.Float;
 import Compiler.Definitions.FunctionDef;
-import Compiler.Distributions.Bernoulli;
+import Compiler.Distributions.Bernouilli;
 import Compiler.Distributions.Beta;
 import Compiler.Distributions.Flip;
 import Compiler.Distributions.Normal;
 import Compiler.Expression;
-import Compiler.Expressions.FunctionCall;
-import Compiler.Expressions.Id;
-import Compiler.Expressions.Let;
-import Compiler.Expressions.Operation;
-import Compiler.Operators.Equals;
-import Compiler.Operators.Plus;
+import Compiler.Expressions.*;
+import Compiler.Operators.*;
 import Compiler.Program;
 import Compiler.Assembler;
-import Compiler.FunctionArg;
+import Compiler.Expressions.FunctionArg;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,6 +34,63 @@ public class CompilerTest {
                new Operation(new Plus(), new Integer("41"), new Integer("1")));
 
        assertCompilation(addition, "42");
+    }
+
+
+    @Test
+    public void integerMultiplication() throws Exception {
+        Program addition = new Program(new Id("integerAddition"),
+                new Operation(new Multiply(), new Integer("6"), new Integer("7")));
+
+        assertCompilation(addition, "42");
+    }
+
+    @Test
+    public void integerSubtraction() throws Exception {
+        Program addition = new Program(new Id("integerAddition"),
+                new Operation(new Sub(), new Integer("100"), new Integer("58")));
+
+        assertCompilation(addition, "42");
+    }
+
+    @Test
+    public void integerDivision() throws Exception {
+        Program addition = new Program(new Id("integerAddition"),
+                new Operation(new Div(), new Integer("294"), new Integer("7")));
+
+        assertCompilation(addition, "42");
+    }
+
+    @Test
+    public void less() throws Exception {
+        Program less = new Program(new Id("Less"),
+                new Operation(new Less(), new Integer("4"), new Integer("9")));
+
+        assertCompilation(less, "true");
+    }
+
+    @Test
+    public void greater() throws Exception {
+        Program less = new Program(new Id("Greater"),
+                new Operation(new Greater(), new Integer("4"), new Integer("9")));
+
+        assertCompilation(less, "false");
+    }
+
+    @Test
+    public void and() throws Exception {
+        Program and = new Program(new Id("And"),
+                new Operation(new And(), new Boolean("1"), new Boolean("0")));
+
+        assertCompilation(and, "false");
+    }
+
+    @Test
+    public void or() throws Exception {
+        Program and = new Program(new Id("Or"),
+                new Operation(new Or(), new Boolean("1"), new Boolean("0")));
+
+        assertCompilation(and, "true");
     }
 
     @Test
@@ -83,8 +136,8 @@ public class CompilerTest {
     public void function() throws Exception {
         Program function = new Program(new Id("function"),
                 new Let(new FunctionDef(new Id ("funcA"), new Id[] {new Id("x"), new Id("y")}, new Expression[] {
-                        new Operation(new Plus(), new FunctionArg(0, new Id("x")),
-                                new Operation(new Plus(), new FunctionArg(0, new Id("x")), new FunctionArg(1, new Id("y"))))
+                        new Operation(new Plus(), new FunctionArg(0),
+                                new Operation(new Plus(), new FunctionArg(0), new FunctionArg(1)))
                 }),
                         new FunctionCall(new Id("Function/funcA"), new Expression[] {new Integer("15"), new Integer("12")})));
 
@@ -101,11 +154,11 @@ public class CompilerTest {
     public void nestedFunctions() throws Exception {
         Program function = new Program(new Id("nestedFunctions"),
                 new Let(new FunctionDef(new Id ("funcA"), new Id[] {new Id("x")}, new Expression[] {
-                        new Operation(new Plus(), new Integer("5"), new FunctionArg(0, new Id("x")))
+                        new Operation(new Plus(), new Integer("5"), new FunctionArg(0))
                 }),
                 new Let(new FunctionDef(new Id("funcB"), new Id[] {new Id("y")}, new Expression[] {
                         new Operation(new Plus(),
-                                new FunctionCall(new Id("nestedFunctions/funcA"), new Expression[] {new FunctionArg(0, new Id("y"))}),
+                                new FunctionCall(new Id("nestedFunctions/funcA"), new Expression[] {new FunctionArg(0)}),
                                 new Float("20.5"))
                 }),
                         new FunctionCall(new Id("nestedFunctions/funcB"), new Expression[] {new Integer("7")}))));
@@ -114,17 +167,17 @@ public class CompilerTest {
     }
 
     @Test
-    public void bernoulliSample() throws Exception {
-        Program bernoulliSample = new Program(new Id("bernoulliSample"),
-                new Bernoulli(new Float("0.7")));
+    public void bernouilliSample() throws Exception {
+        Program bernouilliSample = new Program(new Id("BernouilliSample"),
+                new Sample(new Bernouilli(new Float("0.7"))));
 
-        assertVariedCompilation(bernoulliSample, new String[] {"0", "1"});
+        assertVariedCompilation(bernouilliSample, new String[] {"0", "1"});
     }
 
     @Test
     public void betaSample() throws Exception {
         Program betaSample = new Program(new Id("BetaSample"),
-                new Beta(new Float("4.0"), new Float("5.0")));
+                new Sample(new Beta(new Float("14.5"), new Float("20.0"))));
 
         assertCompilationInRange(betaSample, 0, 1);
     }
@@ -132,7 +185,7 @@ public class CompilerTest {
     @Test
     public void flipSample() throws Exception {
         Program flipSample = new Program(new Id("FlipSample"),
-                new Flip(new Float("0.7")));
+                new Sample(new Flip(new Float("0.2"))));
 
         assertVariedCompilation(flipSample, new String[] {"true", "false"});
     }
@@ -140,16 +193,35 @@ public class CompilerTest {
     @Test
     public void normalSample() throws Exception {
         Program normalSample = new Program(new Id("NormalSample"),
-                new Normal(new Float("10.0"), new Float("4.0")));
+                new Sample(new Normal(new Float("20.0"), new Float("36.0"))));
 
-        assertCompilationInRange(normalSample, 0, 100);
+        assertCompilationInRange(normalSample, -200, 200);
+    }
+
+    @Test
+    public void validObservation() throws Exception {
+        Program validObservation = new Program(new Id("ValidObservation"),
+                new Observation(
+                        new Operation(new Equals(), new Integer("42"), new Integer("42")),
+                        new Operation(new Plus(), new Integer("42"), new Integer("42"))));
+
+        assertCompilation(validObservation, "84");
+    }
+
+    @Test
+    public void invalidObservation() throws Exception {
+        Program invalidObservation = new Program(new Id("InvalidObservation"),
+                new Observation(
+                        new Operation(new Equals(), new Integer("7"), new Integer("42")),
+                        new Operation(new Plus(), new Integer("42"), new Integer("42"))));
+
+        assertCompilation(invalidObservation, "Observation failed.");
     }
 
     private void assertCompilationInRange(Program program, int rangeStart, int rangeEnd) {
         String outcome = compileAndRunProgram(program);
         java.lang.Float result = java.lang.Float.valueOf(outcome);
 
-        System.out.println(result);
         assertTrue(result >= rangeStart);
         assertTrue(result <= rangeEnd);
     }

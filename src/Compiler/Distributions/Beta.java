@@ -1,13 +1,12 @@
 package Compiler.Distributions;
 
 import Compiler.Constants.Float;
-import Compiler.Distribution;
+import Compiler.Expressions.Distribution;
 import Compiler.Compilable;
 import Compiler.Assembler;
 import java.util.HashMap;
 
-import static Compiler.Instruction.BETA;
-import static Compiler.Instruction.LDC;
+import static Compiler.Instruction.*;
 
 public class Beta extends Distribution {
     private Float a;
@@ -20,8 +19,13 @@ public class Beta extends Distribution {
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        assembler.addInstruction(NEWVAR);
+        assembler.addInstruction(DUP);
+        assembler.addInstruction(NEWBETA);
+        assembler.addInstruction(DUP);
         a.compile(scope, assembler);
         b.compile(scope, assembler);
-        assembler.addInstruction(BETA);
+        assembler.addInstruction(INITBETA);
+        assembler.addInstruction(INITDISTR);
     }
 }

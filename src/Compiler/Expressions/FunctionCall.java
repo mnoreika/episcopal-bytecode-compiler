@@ -5,8 +5,6 @@ import Compiler.Compilable;
 import Compiler.Assembler;
 import java.util.HashMap;
 
-import static Compiler.Instruction.INVSTATIC;
-
 public class FunctionCall extends Expression {
     private Id id;
     private Expression[] args;

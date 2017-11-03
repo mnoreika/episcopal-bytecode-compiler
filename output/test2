@@ -1,4 +1,4 @@
-.class public NestedFunctions
+.class public less
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -11,34 +11,16 @@
 
 new Variable
 dup
-ldc 2
+ldc 4
 invokespecial Variable/<init>(I)V
 new Variable
 dup
-ldc 5
+ldc 9
 invokespecial Variable/<init>(I)V
-invokestatic funcB(LVariable;LVariable;)LVariable;
+invokestatic Operations/less(LVariable;LVariable;)LVariable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V
 return
-.end method
-
-.method public static funcA(LVariable;)LVariable;
-.limit stack 10
-.limit locals 10
-aload 0
-aload 0
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
-areturn
-.end method
-
-.method public static funcB(LVariable;LVariable;)LVariable;
-.limit stack 10
-.limit locals 10
-ldc 0.1
-invokestatic Distributions/Bernoulli(F)I
-invokestatic funcA()LVariable;
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
-areturn
 .end method

@@ -18,6 +18,7 @@ dup
 ldc 37.0
 invokespecial Variable/<init>(F)V
 invokestatic Operations/add(LVariable;LVariable;)LVariable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

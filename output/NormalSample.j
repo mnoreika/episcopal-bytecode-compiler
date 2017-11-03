@@ -11,13 +11,20 @@
 
 new Variable
 dup
-ldc 10.0
+new Normal
+dup
+new Variable
+dup
+ldc 20.0
 invokespecial Variable/<init>(F)V
 new Variable
 dup
-ldc 4.0
+ldc 36.0
 invokespecial Variable/<init>(F)V
-invokestatic Distributions/Normal(LVariable;LVariable;)LVariable;
+invokespecial Normal/<init>(LVariable;LVariable;)V
+invokespecial Variable/<init>(LDistribution;)V
+invokevirtual Variable/sample()LVariable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

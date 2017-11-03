@@ -13,6 +13,7 @@ new Variable
 dup
 ldc 1
 invokespecial Variable/<init>(Z)V
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

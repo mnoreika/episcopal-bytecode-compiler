@@ -11,13 +11,14 @@
 
 new Variable
 dup
-ldc 41
+ldc 294
 invokespecial Variable/<init>(I)V
 new Variable
 dup
-ldc 1
+ldc 7
 invokespecial Variable/<init>(I)V
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
+invokestatic Operations/div(LVariable;LVariable;)LVariable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

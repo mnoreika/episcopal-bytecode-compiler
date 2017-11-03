@@ -11,9 +11,16 @@
 
 new Variable
 dup
-ldc 0.7
+new Flip
+dup
+new Variable
+dup
+ldc 0.2
 invokespecial Variable/<init>(F)V
-invokestatic Distributions/Flip(LVariable;)LVariable;
+invokespecial Flip/<init>(LVariable;)V
+invokespecial Variable/<init>(LDistribution;)V
+invokevirtual Variable/sample()LVariable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

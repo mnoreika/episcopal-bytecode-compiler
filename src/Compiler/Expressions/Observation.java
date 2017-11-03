@@ -19,10 +19,12 @@ public class Observation extends Expression {
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
         statement.compile(scope, assembler);
-        assembler.addInstruction(BOOLTOINT);
-        assembler.addInstruction(IFTRUE);
-        expr.compile(scope, assembler);
-        assembler.addInstruction(FAILLABEL);
+        assembler.addInstruction(GETOBRESULT);
+        assembler.addInstruction(ASSERT);
         assembler.addInstruction(MAKEFAILOBJECT);
+        assembler.addInstruction(GOTOPRINT);
+        assembler.addInstruction(CONTINUELABEL);
+        expr.compile(scope, assembler);
+
     }
 }

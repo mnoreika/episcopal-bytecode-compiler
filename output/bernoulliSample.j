@@ -14,6 +14,7 @@ dup
 ldc 0.7
 invokespecial Variable/<init>(F)V
 invokestatic Distributions/Bernoulli(LVariable;)LVariable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

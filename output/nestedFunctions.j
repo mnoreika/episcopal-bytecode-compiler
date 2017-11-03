@@ -14,6 +14,7 @@ dup
 ldc 7
 invokespecial Variable/<init>(I)V
 invokestatic nestedFunctions/funcB(LVariable;)LVariable;
+Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
 swap
 invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V

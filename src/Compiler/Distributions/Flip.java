@@ -1,13 +1,12 @@
 package Compiler.Distributions;
 
 import Compiler.Constants.Float;
-import Compiler.Distribution;
+import Compiler.Expressions.Distribution;
 import Compiler.Compilable;
 import Compiler.Assembler;
 import java.util.HashMap;
 
-import static Compiler.Instruction.FLIP;
-import static Compiler.Instruction.LDC;
+import static Compiler.Instruction.*;
 
 public class Flip extends Distribution {
     private Float p;
@@ -18,7 +17,12 @@ public class Flip extends Distribution {
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        assembler.addInstruction(NEWVAR);
+        assembler.addInstruction(DUP);
+        assembler.addInstruction(NEWFLIP);
+        assembler.addInstruction(DUP);
         p.compile(scope, assembler);
-        assembler.addInstruction(FLIP);
+        assembler.addInstruction(INITFLIP);
+        assembler.addInstruction(INITDISTR);
     }
 }

@@ -40,6 +40,7 @@ public class Program {
             }
         }
 
+        assembler.addInstruction("Print:");
         assembler.addInstruction("getstatic java/lang/System/out Ljava/io/PrintStream;");
         assembler.addInstruction("swap");
         assembler.addInstruction("invokevirtual java/io/PrintStream/println(Ljava/lang/Object;)V");

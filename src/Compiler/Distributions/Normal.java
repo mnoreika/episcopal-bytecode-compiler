@@ -1,14 +1,13 @@
 package Compiler.Distributions;
 
 import Compiler.Constants.Float;
-import Compiler.Distribution;
+import Compiler.Expressions.Distribution;
 import Compiler.Compilable;
 import Compiler.Assembler;
 
 import java.util.HashMap;
 
-import static Compiler.Instruction.LDC;
-import static Compiler.Instruction.NORMAL;
+import static Compiler.Instruction.*;
 
 public class Normal extends Distribution {
     private Float mean;
@@ -21,8 +20,13 @@ public class Normal extends Distribution {
 
     @Override
     public void compile(HashMap<String, Compilable> scope, Assembler assembler) {
+        assembler.addInstruction(NEWVAR);
+        assembler.addInstruction(DUP);
+        assembler.addInstruction(NEWNORMAL);
+        assembler.addInstruction(DUP);
         mean.compile(scope, assembler);
         std.compile(scope, assembler);
-        assembler.addInstruction(NORMAL);
+        assembler.addInstruction(INITNORMAL);
+        assembler.addInstruction(INITDISTR);
     }
 }

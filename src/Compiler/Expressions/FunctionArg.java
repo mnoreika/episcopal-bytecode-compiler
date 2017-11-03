@@ -1,16 +1,16 @@
-package Compiler;
+package Compiler.Expressions;
 
-import Compiler.Expressions.Id;
+import Compiler.Expression;
+import Compiler.Compilable;
+import Compiler.Assembler;
 import java.util.HashMap;
 
 import static Compiler.Instruction.ALOAD;
 
 public class FunctionArg extends Expression {
-    private Id argument;
     private int position;
 
-    public FunctionArg(int position, Id argument) {
-        this.argument = argument;
+    public FunctionArg(int position) {
         this.position = position;
     }
 

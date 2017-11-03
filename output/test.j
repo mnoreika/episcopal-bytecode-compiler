@@ -1,4 +1,4 @@
-.class public Observation
+.class public DistAsVariable
 .super java/lang/Object
 .method public <init>()V
    aload_0
@@ -11,27 +11,16 @@
 
 new Variable
 dup
-ldc 42
-invokespecial Variable/<init>(I)V
+new Bernouilli
+dup
 new Variable
 dup
-ldc 42
-invokespecial Variable/<init>(I)V
-invokestatic Operations/equals(LVariable;LVariable;)LVariable;
-invokestatic Operations/getObservResult(LVariable;)I 
-ifeq Expr
-invokestatic Operations/makeFailObject()LVariable;
-goto Print
-Expr:
-new Variable
-dup
-ldc 42
-invokespecial Variable/<init>(I)V
-new Variable
-dup
-ldc 42
-invokespecial Variable/<init>(I)V
-invokestatic Operations/add(LVariable;LVariable;)LVariable;
+ldc 0.2
+invokespecial Variable/<init>(F)V
+invokespecial Bernouilli/<init>(LVariable;)V
+invokespecial Variable/<init>(LDistribution;)V
+invokevirtual Variable/sample()LVariable;
+
 
 Print:
 getstatic java/lang/System/out Ljava/io/PrintStream;
